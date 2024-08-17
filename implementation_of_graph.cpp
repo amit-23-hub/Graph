@@ -5,14 +5,27 @@ int main()
 {
     int edge  ,  vertex  ;
     cin >> edge >> vertex;
-    vector<vector<bool> >adjMat(vertex, vector<bool>(vertex , 0))  ;
+    vector<vector<int> >adjMat(vertex, vector<int>(vertex , 0))  ;
 
-    // initialing edge coordinate 
-    int u ,  v  ;
+    // initialing edge coordinate for unweighted and undirected 
+    // int u ,  v  ;
+    // for(int i = 0 ; i<vertex ; i++){
+    //     cin>> u>>v ; 
+    //     adjMat[u][v] = 1 ;   //  in the case of undirected we can go u->v and v->u 
+    //     adjMat[v][u] = 1 ;
+    // }
+
+
+
+
+//  for weighted 
+
+
+int u ,  v , weight   ;
     for(int i = 0 ; i<vertex ; i++){
-        cin>> u>>v ; 
-        adjMat[u][v] = 1 ;   //  in the case of undirected we can go u->v and v->u 
-        adjMat[v][u] = 1 ;
+        cin>> u>>v >> weight ; 
+        adjMat[u][v] = weight ;   //  in the case of undirected we can go u->v and v->u 
+        adjMat[v][u] = weight ;
     }
 
     // printing 
