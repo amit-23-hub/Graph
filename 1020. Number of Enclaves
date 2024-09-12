@@ -1,0 +1,76 @@
+class Solution {
+public:
+
+int r , c ; 
+int row[4]  = {1,-1,0,0} ; 
+int col[4]   = {0,0,1,-1} ;
+
+bool valid (int i , int j){
+    return i>=0&&i<r&&j>=0&&j<c ; 
+}
+    int numEnclaves(vector<vector<int>>& grid) {
+
+        int count = 0 ; 
+    r = grid.size() ; 
+    c = grid[0].size() ;
+
+
+    queue<pair<int,int>>q ; 
+        // 1 col
+    for(int i =0 ; i<r ; i++){
+        if(grid[i][0]==1){
+            q.push({i,0}) ; 
+            grid[i][0] = -1 ;  // marked as visited 
+        }
+    }
+  // 1st row
+    for(int i =1 ; i<c ; i++){
+        if(grid[0][i]==1){
+            q.push({0,i}) ; 
+            grid[0][i] = -1 ;  // marked as visited 
+        }
+    }
+   // last row  
+    for(int i =1 ; i<c ; i++){
+        if(grid[r-1][i]==1){
+            q.push({r-1,i}) ; 
+            grid[r-1][i] = -1 ;  // marked as visited 
+        }
+    }
+    // last col 
+for(int i =1 ; i<r-1 ; i++){
+        if(grid[i][c-1]==1){
+            q.push({i,c-1}) ; 
+            grid[i][c-1] = -1 ;  // marked as visited 
+        }
+    }
+
+
+    while(!q.empty()){
+
+        int ni = q.front().first ; 
+        int nj  = q.front().second ; 
+
+        q.pop() ;  
+
+        for(int k = 0 ; k<4 ; k++){
+            if(valid(ni+row[k],nj+col[k])&& grid[ni+row[k]][nj+col[k]]==1){
+                grid[ni+row[k]][nj+col[k]]=-1   ;  // marked as visited 
+                q.push({ni+row[k],nj+col[k]}) ; 
+            }
+        }
+
+
+      
+    }
+     for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (grid[i][j] == 1) {
+                    count++;
+                }
+            }
+        }
+    
+    return count;
+    }
+};
