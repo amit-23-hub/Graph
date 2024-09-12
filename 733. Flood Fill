@@ -1,0 +1,43 @@
+class Solution {
+public:
+
+int r ,c ; 
+int row[4] = { 1,-1,0,0};
+int col[4] = {0,0,-1,1} ; 
+ 
+
+ bool valid (int i , int j){
+    return i>=0&&i<r&&j>=0&&j<c ; 
+} 
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+       queue<pair<int,int>>q ;
+       r = image.size() ; 
+       c= image[0].size() ; 
+
+       q.push({sr,sc}) ; 
+
+        int org_color = image[sr][sc] ; 
+         image[sr][sc] = color ; 
+        // if original colr is allready equal to targeted so no require to changes
+         if (org_color == color) {
+            return image;
+        }
+
+       while(!q.empty()){
+              int ni = q.front().first ; 
+              int nj  = q.front().second ; 
+
+                 q.pop() ;  
+
+        for(int k = 0 ; k<4 ; k++){
+            if(valid(ni+row[k],nj+col[k])&& image[ni+row[k]][nj+col[k]]==org_color){
+                image[ni+row[k]][nj+col[k]] = color   ;  // update color 
+                q.push({ni+row[k],nj+col[k]}) ; 
+            }
+        }
+       }
+
+       return image  ; 
+
+    }
+};
