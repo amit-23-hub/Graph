@@ -1,0 +1,43 @@
+public:
+    vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
+        // code here
+        
+        vector<int>adj[N] ; 
+         vector<int>d(N,-1) ; 
+        vector<int>visited(N,0) ; 
+        
+        // total M edges 
+      //  created adj list   
+        for(int i = 0 ; i<M ;i++){
+            adj[edges[i][0]].push_back(edges[i][1]) ; 
+            adj[edges[i][1]].push_back(edges[i][0]) ; 
+        }
+        
+        // distance vector initilise with  -1    
+       
+        queue<int>q ; 
+        q.push(src) ; 
+        d[src] = 0 ; 
+        visited[src] = 1 ; 
+        
+        while(!q.empty()){
+            
+            
+            int node =  q.front() ; 
+            q.pop() ;
+            
+            for (int i = 0 ; i<adj[node].size();i++){
+                if(visited[adj[node][i]]){
+                    continue  ;  
+                } else{
+                    // make it visited and push into the queue and increase the distnace of it by 1 
+                    visited[adj[node][i]]=1  ;  
+                    q.push(adj[node][i]) ;
+                    d[adj[node][i]] = d[node]+1  ; 
+                    
+                }
+            }
+        }
+        
+        return d ; 
+    }
